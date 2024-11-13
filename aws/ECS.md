@@ -94,11 +94,29 @@ Blue/Green デプロイは、新旧のバージョンを並行稼働させるこ
 | Bad  | コストの増加<br>管理の複雑さ                                   | ロールバックの複雑さ                             |
 
 メモ
-- ロードバランサーでlistenerとtarget groupを作成する
-- security groupでblueのアプリにはどのユーザーからもアクセスできるように設定し、greenのアプリには開発者からのIPアドレスしかアクセスできないように制限をかける
-- ヘルスチェックでgreenのコンテナが正常に起動・動作しているかを確認する
+
+- ロードバランサーで listener と target group を作成する
+- security group で blue のアプリにはどのユーザーからもアクセスできるように設定し、green のアプリには開発者からの IP アドレスしかアクセスできないように制限をかける
+- ヘルスチェックで green のコンテナが正常に起動・動作しているかを確認する
 
 参考資料：https://cmc-japan.co.jp/blog/%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4%E3%81%A8%E3%81%AF/
+
+#### CodeDeploy のデプロイ設定
+
+- CodeDeployDefault.ECS AllAtOnce:
+  すべてのトラフィックを Green のコンテナに一度に移行する
+
+- CodeDeployDefault.ECSLinear10PercentEvery1Minutes :
+  1 分ごとに 10%ずつ を Green へのトラフィックを増やす
+
+- CodeDeployDefault.ECSLinear10PercentEvery3Minutes :
+  3 分ごとに 10%ずつ を Green へのトラフィックを増やす
+
+- CodeDeployDefault.ECSCanary10Percent5Minutes:
+  最初に 10% のトラフィックを Green へ流し、残りの 90 パーセントは 5 分後に流す
+
+- CodeDeployDefault.ECSCanary10Percent15Minutes :
+  最初に 10% のトラフィックを Green へ流し、残りの 90 パーセントは 15 分後に流す
 
 ## ECS と CI/CD パイプライン
 
