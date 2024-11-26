@@ -169,3 +169,24 @@ CPU やメモリのターゲット使用率になるようにコンテナの数�
 ## ECS における状態管理
 
 ## マイクロサービスアーキテクチャ入門
+
+## メモ
+
+#### GitHub Actions のデバッグについて
+
+ワークフロー内で ACTIONS_STEP_DEBUG 環境変数を true に設定することで、GitHub がデバッグ用の詳細なログを出してくれるようになる。
+
+```
+env:
+  ACTIONS_STEP_DEBUG: true
+```
+
+あとは、以下のように set -x コマンドを使ってやると実際に実行したコマンドとその結果をログで確認することが可能になる。
+
+```
+steps:
+  - run: |
+    set -x
+    some-command1
+    some-command2
+```
